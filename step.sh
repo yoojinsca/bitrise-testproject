@@ -1,5 +1,6 @@
 #!/bin/bash
-set -eox pipefail
+
+set -eox
 
 #
 # --- Export Environment Variables for other Steps:
@@ -19,8 +20,10 @@ set -eox pipefail
 #  with a 0 exit code `bitrise` will register your Step as "successful".
 # Any non zero exit code will be registered as "failed" by `bitrise`.
 
-envman run bash -c 'echo "testproject_access_key: $testproject_access_key"'
-envman run bash -c 'echo "upload_path: $upload_path"'
+echo "upload_path: ${upload_path}"
+
+envman run bash -c 'echo "testproject_access_key: ${testproject_access_key}"'
+envman run bash -c 'echo "upload_path: ${upload_path}"'
 
 curl -X GET "https://api.testproject.io/v2/projects/KDjPW2WAQEmPe2V9dXjHFQ/applications/fPgw16ECY0-_Y463-c8ufA/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url' | envman add --key TESTPROJECT_URL_UPLOAD
 envman run bash -c 'echo "TESTPROJECT_URL_UPLOAD: $TESTPROJECT_URL_UPLOAD"'
@@ -29,10 +32,10 @@ TESTPROJECT_URL_UPLOAD=$(curl -X GET "https://api.testproject.io/v2/projects/KDj
 
 echo "TESTPROJECT_URL_UPLOAD=${TESTPROJECT_URL_UPLOAD}"
 
-TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@$upload_path" -L $TESTPROJECT_URL_UPLOAD)
+TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@${upload_path}" -L $TESTPROJECT_URL_UPLOAD)
 
 echo "TESTPROJECT_URL_UPLOAD_RESULT=${TESTPROJECT_URL_UPLOAD_RESULT}"
 
 TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X POST "https://api.testproject.io/v2/projects/KDjPW2WAQEmPe2V9dXjHFQ/applications/fPgw16ECY0-_Y463-c8ufA/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"LiSTNR.ipa\"}")
 
-echo "TESTPROJECT_URL_UPLOAD_RESULT=${TESTPROJECT_URL_UPLOAD_RESULT}"
+echo "TESTPROJECT_URL_UPLOAD_RESULT=$TESTPROJECT_URL_UPLOAD_RESULT"
