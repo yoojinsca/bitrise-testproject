@@ -18,7 +18,7 @@ support_url:  https://github.com/yoojinsca/bitrise-testproject/issues
 published_at: 2021-01-10T13:01:57.318895784+02:00
 source:
   git: https://github.com/yoojinsca/bitrise-testproject.git
-  commit: df1c9da0280e02c4360aad4275020fce4b46b979
+  commit: 72ac8a44b4be923606c3f9fe39eabb0aa8b3eac5
 
 # If this step should be available only for certain project types
 # just uncomment this `project_type_tags` section and include all the
@@ -33,10 +33,6 @@ project_type_tags:
   - ios
   - android
   - macos
-#   - xamarin
-#   - react-native
-#   - cordova
-#   - ionic
 
 # Type tags are used for categorizing steps, for easier step discovery in Step Libraries.
 # You can find more information about type tags in the Step Development Guideline:
@@ -79,11 +75,26 @@ inputs:
       is_sensitive: true
       summary: Your TestProject access key
       title: TestProject access key
-
+  - testproject_project: $TESTPROJECT_PROJECT_ID
+    opts:
+      description: |
+        The access key you use to log into your TestProject account
+      is_required: true
+      is_sensitive: true
+      summary: Your TestProject access key
+      title: TestProject access key
+  - testproject_app: $TESTPROJECT_APP_ID
+    opts:
+      description: |
+        The app id
+      is_required: true
+      is_sensitive: true
+      summary: Your TestProject app id
+      title: TestProject app id
 outputs:
   - TESTPROJECT_URL_UPLOAD_RESULT:
     opts:
-      title: "Example Step Output"
+      title: "IPA url upload"
       summary: Summary. No more than 2-3 sentences.
       description: |
         Description of this output.
