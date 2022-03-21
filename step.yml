@@ -8,10 +8,8 @@
 # - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
 
 title: TestProject and BrowserStack Upload
-summary: |
-  Upload an IPA file to test an automated TestProject job
-description: |
-  TestProject automated job
+summary: Upload an IPA file to test an automated TestProject job
+description: TestProject automated job
 website:  https://github.com/yoojinsca/bitrise-testproject
 source_code_url:  https://github.com/yoojinsca/bitrise-testproject
 support_url:  https://github.com/yoojinsca/bitrise-testproject/issues
@@ -90,14 +88,6 @@ inputs:
       is_sensitive: true
       summary: Your TestProject app id
       title: TestProject app id
-  - testproject_filename: $TESTPROJECT_FILENAME
-    opts:
-      description: |
-        The app id
-      is_required: true
-      is_sensitive: true
-      summary: Your TestProject file name ie LiSTNR.ipa
-      title: TestProject file name to upload
 outputs:
   - TESTPROJECT_URL_UPLOAD_RESULT:
     opts:
