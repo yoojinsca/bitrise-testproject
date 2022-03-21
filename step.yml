@@ -7,7 +7,7 @@
 # - Bitrise docs: http://devcenter.bitrise.io/
 # - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
 
-title: TestProject Upload
+title: TestProject and BrowserStack Upload
 summary: |
   Upload an IPA file to test an automated TestProject job
 description: |
@@ -38,7 +38,6 @@ project_type_tags:
 # You can find more information about type tags in the Step Development Guideline:
 # https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
 type_tags:
-  - deploy
   - test
 
 is_requires_admin_user: true
@@ -75,7 +74,7 @@ inputs:
       is_sensitive: true
       summary: Your TestProject access key
       title: TestProject access key
-  - testproject_project: $TESTPROJECT_PROJECT_ID
+  - testproject_project_id: $TESTPROJECT_PROJECT_ID
     opts:
       description: |
         The access key you use to log into your TestProject account
@@ -83,7 +82,7 @@ inputs:
       is_sensitive: true
       summary: Your TestProject access key
       title: TestProject access key
-  - testproject_app: $TESTPROJECT_APP_ID
+  - testproject_app_id: $TESTPROJECT_APP_ID
     opts:
       description: |
         The app id
@@ -91,12 +90,18 @@ inputs:
       is_sensitive: true
       summary: Your TestProject app id
       title: TestProject app id
+  - testproject_filename: $TESTPROJECT_FILENAME
+    opts:
+      description: |
+        The app id
+      is_required: true
+      is_sensitive: true
+      summary: Your TestProject file name ie LiSTNR.ipa
+      title: TestProject file name to upload
 outputs:
   - TESTPROJECT_URL_UPLOAD_RESULT:
     opts:
       title: "IPA url upload"
-      summary: Summary. No more than 2-3 sentences.
+      summary: The url of the ipa uploaded to BrowserStack
       description: |
-        Description of this output.
-
-        Can be Markdown formatted text.
+        URL uplod result

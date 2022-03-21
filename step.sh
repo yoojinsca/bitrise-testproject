@@ -24,16 +24,16 @@ set -eox
 
 echo "upload_path: ${upload_path}"
 
-envman run bash -c 'echo "TESTPROJECT_PROJECT_ID: ${TESTPROJECT_PROJECT_ID}"'
-envman run bash -c 'echo "TESTPROJECT_APP_ID: ${TESTPROJECT_APP_ID}"'
-
 envman run bash -c 'echo "testproject_access_key: ${testproject_access_key}"'
+envman run bash -c 'echo "TESTPROJECT_PROJECT_ID: ${testproject_project_id}"'
+envman run bash -c 'echo "TESTPROJECT_APP_ID: ${testproject_app_id}"'
+envman run bash -c 'echo "TESTPROJECT_FILENAME: ${testproject_filename}"'
 envman run bash -c 'echo "upload_path: ${upload_path}"'
 
-curl -X GET "https://api.testproject.io/v2/projects/${TESTPROJECT_PROJECT_ID}/applications/${TESTPROJECT_APP_ID}/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url' | envman add --key TESTPROJECT_URL_UPLOAD
+curl -X GET "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url' | envman add --key TESTPROJECT_URL_UPLOAD
 envman run bash -c 'echo "TESTPROJECT_URL_UPLOAD: $TESTPROJECT_URL_UPLOAD"'
 
-TESTPROJECT_URL_UPLOAD=$(curl -X GET "https://api.testproject.io/v2/projects/${TESTPROJECT_PROJECT_ID}/applications/${TESTPROJECT_APP_ID}/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url')
+TESTPROJECT_URL_UPLOAD=$(curl -X GET "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url')
 
 echo "TESTPROJECT_URL_UPLOAD='${TESTPROJECT_URL_UPLOAD}'"
 
@@ -41,6 +41,6 @@ TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@${upload_path}"
 
 echo "TESTPROJECT_URL_UPLOAD_RESULT='${TESTPROJECT_URL_UPLOAD_RESULT}'"
 
-TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X POST "https://api.testproject.io/v2/projects/${TESTPROJECT_PROJECT_ID}/applications/${TESTPROJECT_APP_ID}/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"LiSTNR.ipa\"}")
+curl -X POST "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"$testproject_filename\"}" | envman add --key TESTPROJECT_URL_UPLOAD_RESULT
 
-echo "TESTPROJECT_URL_UPLOAD_RESULT=$TESTPROJECT_URL_UPLOAD_RESULT"
+envman run bash -c 'echo "TESTPROJECT_URL_UPLOAD_RESULT: $TESTPROJECT_URL_UPLOAD_RESULT"'
