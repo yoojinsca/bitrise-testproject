@@ -1,12 +1,12 @@
 #!/bin/bash
-. ./utils.sh
 
 #=======================================
 # Upload an iOS or Android file to TestProject
 # Reference: https://api.testproject.io/docs/v2/
 #=======================================
 
-THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source utils.sh
 
 set -e
 
