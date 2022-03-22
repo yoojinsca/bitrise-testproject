@@ -64,6 +64,14 @@ inputs:
         or $BITRISE\_IPA\_PATH
       title: A Bitrise generated APK or IPA path
     upload_path: $BITRISE_IPA_PATH
+  - apk_ipa_filepath: 
+    opts:
+      title: "Location of the IPA or APK"
+      summary: Location of the IPA or APK that you want to upload.
+      description: |
+        The app file you want to upload to BrowserStack, usually $BITRISE\_APK\_PATH or $BITRISE\_IPA\_PATH.
+      is_expand: true
+      is_required: true
   - testproject_access_key: $TESTPROJECT_ACCESS_KEY
     opts:
       description: |

@@ -23,7 +23,16 @@ set -eox
 # https://api.testproject.io/docs/v2/
 
 echo "upload_path: ${upload_path}"
+echo "upload_path 2: $upload_path"
+echo "apk_ipa_filepath: ${apk_ipa_filepath}"
+echo "apk_ipa_filepath: $apk_ipa_filepath"
 
+envman run bash -c 'echo "testproject_access_key: ${testproject_access_key}"'
+envman run bash -c 'echo "TESTPROJECT_PROJECT_ID: ${testproject_project_id}"'
+envman run bash -c 'echo "TESTPROJECT_APP_ID: ${testproject_app_id}"'
+envman run bash -c 'echo "TESTPROJECT_FILENAME: ${testproject_filename}"'
+envman run bash -c 'echo "BITRISE_IPA_PATH: $BITRISE_IPA_PATH"'
+envman run bash -c 'echo "upload_path: ${upload_path}"'
 
 if [ -z "$apk_ipa_filepath" ]; then
   echo "Please provide the path for the IPA or APK that you wish to upload."
@@ -32,12 +41,6 @@ if [ -z "$apk_ipa_filepath" ]; then
   exit 1
 fi
 
-envman run bash -c 'echo "testproject_access_key: ${testproject_access_key}"'
-envman run bash -c 'echo "TESTPROJECT_PROJECT_ID: ${testproject_project_id}"'
-envman run bash -c 'echo "TESTPROJECT_APP_ID: ${testproject_app_id}"'
-envman run bash -c 'echo "TESTPROJECT_FILENAME: ${testproject_filename}"'
-envman run bash -c 'echo "BITRISE_IPA_PATH: $BITRISE_IPA_PATH"'
-envman run bash -c 'echo "upload_path: ${upload_path}"'
 
 curl -X GET "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url' | envman add --key TESTPROJECT_URL_UPLOAD
 envman run bash -c 'echo "TESTPROJECT_URL_UPLOAD: $TESTPROJECT_URL_UPLOAD"'
