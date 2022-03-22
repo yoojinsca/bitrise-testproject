@@ -6,7 +6,7 @@
 #=======================================
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source utils.sh
+. $CURRENT_DIR/utils.sh
 
 set -e
 
