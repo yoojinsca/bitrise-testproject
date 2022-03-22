@@ -65,6 +65,14 @@ inputs:
       is_required: true
       is_expand: true
       is_sensitive: false
+  - testproject_filename:
+    opts:
+      title: "TestProject app file name"
+      summary: Name of the app to upload
+      description: "ie. XXX.ipa"
+      is_required: true
+      is_expand: true
+      is_sensitive: false
   - testproject_access_key: $TESTPROJECT_ACCESS_KEY
     opts:
       title: TestProject access key
