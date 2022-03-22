@@ -2,7 +2,7 @@
 
 THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-set -eox
+set -e
 
 #=======================================
 # Functions
@@ -91,16 +91,24 @@ validate_required_input "testproject_project_id" $testproject_project_id
 validate_required_input "testproject_app_id" $testproject_app_id
 validate_required_input "testproject_filename" $testproject_filename
 
+#=================
+set -eox
 TESTPROJECT_URL_UPLOAD=$(curl -X GET "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url')
+set -e
 
 echo_details "TESTPROJECT_URL_UPLOAD='$TESTPROJECT_URL_UPLOAD'"
 
+#=================
+set -eox
 TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@$apk_ipa_filepath" -L $TESTPROJECT_URL_UPLOAD)
+set -e
 
 echo_details "TESTPROJECT_URL_UPLOAD_RESULT='${TESTPROJECT_URL_UPLOAD_RESULT}'"
 
+#=================
+set -eox
 curl -X POST "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"$testproject_filename\"}" | envman add --key TESTPROJECT_URL_UPLOAD_RESULT
+set -e
 
 envman run bash -c 'echo "TESTPROJECT_URL_UPLOAD_RESULT: $TESTPROJECT_URL_UPLOAD_RESULT"'
-
 echo_details "* TESTPROJECT_URL_UPLOAD_RESULT:     $TESTPROJECT_URL_UPLOAD_RESULT"
