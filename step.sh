@@ -102,14 +102,14 @@ validate_required_input "testproject_filename" $testproject_filename
 #=================
 TESTPROJECT_URL_UPLOAD=$(curl -X GET "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file/upload-link" -H "accept: application/json" -H "Authorization: $testproject_access_key" | jq -r '.url')
 
-echo_details "TESTPROJECT_URL_UPLOAD='$TESTPROJECT_URL_UPLOAD'"
+echo_details "TESTPROJECT_URL_UPLOAD:    $TESTPROJECT_URL_UPLOAD"
 
 #=================
 # Upload file
 #=================
-TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@$apk_ipa_filepath" -L $TESTPROJECT_URL_UPLOAD)
+TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X OPTIONS -F "upload_filename=@$apk_ipa_filepath" -L $TESTPROJECT_URL_UPLOAD)
 
-echo_details "TESTPROJECT_URL_UPLOAD_RESULT='${TESTPROJECT_URL_UPLOAD_RESULT}'"
+echo_details "TESTPROJECT_URL_UPLOAD_RESULT:    ${TESTPROJECT_URL_UPLOAD_RESULT}"
 
 #=================
 # Confirm application file was uploaded to TestProject storage
