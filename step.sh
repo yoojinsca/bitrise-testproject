@@ -107,7 +107,7 @@ echo_details "TESTPROJECT_URL_UPLOAD:    $TESTPROJECT_URL_UPLOAD"
 #=================
 # Upload file
 #=================
-TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X OPTIONS -F "upload_filename=@$apk_ipa_filepath" -L $TESTPROJECT_URL_UPLOAD)
+TESTPROJECT_URL_UPLOAD_RESULT=$(curl -X PUT -F "upload_filename=@$apk_ipa_filepath" -L $TESTPROJECT_URL_UPLOAD)
 
 echo_details "TESTPROJECT_URL_UPLOAD_RESULT:    ${TESTPROJECT_URL_UPLOAD_RESULT}"
 
