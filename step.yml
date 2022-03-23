@@ -109,6 +109,22 @@ inputs:
       is_required: true
       is_expand: true
       is_sensitive: false
+  - browserstack_access_key:
+    opts:
+      title: browserstack_access_key
+      summary: browserstack_access_key
+      description: ""
+      is_required: true
+      is_expand: true
+      is_sensitive: false
+  - browserstack_username:
+    opts:
+      title: browserstack_username
+      summary: browserstack_username
+      description: ""
+      is_required: true
+      is_expand: true
+      is_sensitive: false
 outputs:
   - TESTPROJECT_URL_UPLOAD_RESULT:
     opts:
