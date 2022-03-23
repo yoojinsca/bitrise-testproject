@@ -37,7 +37,7 @@ echo_details "TESTPROJECT_URL_UPLOAD:    $TESTPROJECT_URL_UPLOAD"
 #=================
 # Upload file
 #=================
-TESTPROJECT_URL_UPLOAD_RESULT=$(curl -v -X PUT -F "upload_filename=@$apk_ipa_filepath"  -L "$TESTPROJECT_URL_UPLOAD")
+TESTPROJECT_URL_UPLOAD_RESULT=$(curl -v -X PUT -F "upload_filename=@$apk_ipa_filepath"  -F "data={\"custom_id\": \"LiSTNRv3\"}" -L "$TESTPROJECT_URL_UPLOAD")
 
 echo_details "TESTPROJECT_URL_UPLOAD_RESULT:    ${TESTPROJECT_URL_UPLOAD_RESULT}"
 
@@ -45,7 +45,9 @@ echo_details "TESTPROJECT_URL_UPLOAD_RESULT:    ${TESTPROJECT_URL_UPLOAD_RESULT}
 # Confirm application file was uploaded to TestProject storage
 # http status code 200 means success
 #=================
-curl -X POST "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"$testproject_filename\"}" | envman add --key TESTPROJECT_URL_UPLOAD_RESULT
+filename=$(basename ${apk_ipa_filepath})
+
+curl -X POST "https://api.testproject.io/v2/projects/$testproject_project_id/applications/$testproject_app_id/file" -H "accept: application/json" -H "Authorization: $testproject_access_key" -H "Content-Type: application/json" -d "{ \"fileName\": \"$filename\"}" | envman add --key TESTPROJECT_URL_UPLOAD_RESULT
 
 echo_details "* TESTPROJECT_URL_UPLOAD_RESULT:     $TESTPROJECT_URL_UPLOAD_RESULT"
 
@@ -61,4 +63,4 @@ else
     echo_details "* TESTPROJECT_JOB_RESULT:     $TESTPROJECT_JOB_RESULT"
 fi
 
-curl -u "$browserstack_username:$browserstack_access_key" -X POST https://api-cloud.browserstack.com/app-live/upload -F "file=@$apk_ipa_filepath" -F "data={\"custom_id\": \"LiSTNRv2\"}"
+curl -u "$browserstack_username:$browserstack_access_key" -X POST "https://api-cloud.browserstack.com/app-live/upload" -F "file=@$apk_ipa_filepath" -F "data={\"custom_id\": \"LiSTNRv2\"}"
