@@ -63,4 +63,8 @@ else
     echo_details "* TESTPROJECT_JOB_RESULT:     $TESTPROJECT_JOB_RESULT"
 fi
 
-curl -u "$browserstack_username:$browserstack_access_key" -X POST "https://api-cloud.browserstack.com/app-live/upload" -F "file=@$apk_ipa_filepath" -F "data={\"custom_id\": \"LiSTNRv2\"}"
+set -eox
+
+curl -v -u "$browserstack_username:$browserstack_access_key" -X POST "https://api-cloud.browserstack.com/app-live/upload" -F "file=@$apk_ipa_filepath" -F "data={\"custom_id\": \"LiSTNRv2\"}" | envman add --key BROWSERSTACK_URL_UPLOAD_RESULT
+
+echo_details "* BROWSERSTACK_URL_UPLOAD_RESULT:     $BROWSERSTACK_URL_UPLOAD_RESULT"
