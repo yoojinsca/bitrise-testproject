@@ -5,10 +5,10 @@
 # Reference: https://api.testproject.io/docs/v2/
 #=======================================
 
+set -e
+
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $CURRENT_DIR/utils.sh
-
-set -e
 
 #=======================================
 # Main
@@ -61,5 +61,4 @@ else
     echo_details "* TESTPROJECT_JOB_RESULT:     $TESTPROJECT_JOB_RESULT"
 fi
 
-curl -u "$browserstack_username:$browserstack_access_key" -X POST https://api-cloud.browserstack.com/app-live/upload -F "file=@$apk_ipa_filepath"
-
+curl -u "$browserstack_username:$browserstack_access_key" -X POST https://api-cloud.browserstack.com/app-live/upload -F "file=@$apk_ipa_filepath" -F "data={\"custom_id\": \"LiSTNRv2\"}"
